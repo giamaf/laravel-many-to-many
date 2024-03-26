@@ -1,4 +1,4 @@
-@if ($project->exsist)
+@if ($project->exists)
     <form action="{{ route('admin.projects.update', $project) }}" method="POST" enctype="multipart/form-data"
         class="my-4">
         @method('PUT')
