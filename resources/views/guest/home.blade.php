@@ -19,8 +19,15 @@
                             <h5 class="card-title">{{ $project->name }}</h5>
                             <p class="small">{{ $project->content }}</p>
                             <p class="small"><small>{{ $project->created_at }}</small></p>
-                            <a href="{{ route('guest.projects.show', $project->slug) }}" class="btn btn-dark"><i
-                                    class="far fa-eye me-1"></i>view</a>
+                            @forelse ($project->technologies as $technology)
+                                <img src="{{ $technology->renderLogos() }}" class="img-fluid my-image" alt="">
+                            @empty
+                                <span class="badge rounded-pill text-bg-secondary">No technologies</span>
+                            @endforelse
+                            <div class="my-3">
+                                <a href="{{ route('guest.projects.show', $project->slug) }}" class="btn btn-dark"><i
+                                        class="far fa-eye me-1"></i>view</a>
+                            </div>
                         </div>
                     </div>
                 </div>

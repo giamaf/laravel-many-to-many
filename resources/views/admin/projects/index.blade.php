@@ -47,6 +47,7 @@
                 <th scope="col">Name</th>
                 <th scope="col">Slug</th>
                 <th scope="col">Type</th>
+                <th scope="col">Technologies</th>
                 <th scope="col">Completed</th>
                 <th scope="col">Created</th>
                 <th scope="col">Updated</th>
@@ -66,6 +67,13 @@
                         @else
                             <span class="badge rounded-pill text-bg-dark">No type</span>
                         @endif
+                    </td>
+                    <td>
+                        @forelse ($project->technologies as $technology)
+                            <img src="{{ $technology->renderLogos() }}" class="img-fluid my-image" alt="">
+                        @empty
+                            <span class="badge rounded-pill text-bg-secondary">No technologies</span>
+                        @endforelse
                     </td>
                     <td>{{ $project->is_completed ? 'Yes' : 'No' }}</td>
                     <td>{{ $project->getFormatDate('created_at', 'm-Y') }}</td>
@@ -89,7 +97,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="8">
+                    <td colspan="9">
                         <h3>No projects</h3>
                     </td>
                 </tr>

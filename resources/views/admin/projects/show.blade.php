@@ -22,7 +22,7 @@
             <p><b>Technology:
         </small></b>
         @forelse ($project->technologies as $technology)
-            <img class="img-fluid" src="{{ $technology->renderLogos() }}" alt="">
+            <img class="img-fluid my-image" src="{{ $technology->renderLogos() }}" alt="">
         @empty
             <span class="badge rounded-pill text-bg-dark">No type</span>
         @endforelse
