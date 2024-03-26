@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\Technology;
+
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
 
         // Inserisco il seeder del tipo e della tecnologia
         //! ATTENZIONE: inserisco il seeder prima di creare i progetti
-        $this->call(TypeSeeder::class, Technology::class);
+        $this->call([TypeSeeder::class, TechnologySeeder::class]);
 
         //! CREO 10 FAKE PROJECT
         \App\Models\Project::factory(15)->create();
