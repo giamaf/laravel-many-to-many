@@ -15,14 +15,14 @@ class TechnologySeeder extends Seeder
     {
 
         $technologies = [
-            ['label' => 'HTML', 'image' => 'storage/app/public/tech_logos/HTML-5-Badge-Logo.png'],
-            ['label' => 'CSS', 'image' => 'storage/app/public/tech_logos/CSS3_logo.svg.png'],
-            ['label' => 'Bootstrap', 'image' => 'storage/app/public/tech_logos/Bootstrap_logo.svg.png'],
-            ['label' => 'Javascript', 'image' => 'storage/app/public/tech_logos/Javascript.svg.png'],
-            ['label' => 'Vue', 'image' => 'storage/app/public/tech_logos/Vue.js.svg.png'],
-            ['label' => 'SQL', 'image' => 'storage/app/public/tech_logos/Sql_logo.png'],
-            ['label' => 'PHP', 'image' => 'storage/app/public/tech_logos/PHP-logo.svg.png'],
-            ['label' => 'Laravel', 'image' => 'storage/app/public/tech_logos/Laravel_logo.svg.png'],
+            ['label' => 'HTML', 'image' => 'tech_logos/HTML-5-Badge-Logo.png'],
+            ['label' => 'CSS', 'image' => 'tech_logos/CSS3_logo.svg.png'],
+            ['label' => 'Bootstrap', 'image' => 'tech_logos/Bootstrap_logo.svg.png'],
+            ['label' => 'Javascript', 'image' => 'tech_logos/Javascript.svg.png'],
+            ['label' => 'Vue', 'image' => 'tech_logos/Vue.js.svg.png'],
+            ['label' => 'SQL', 'image' => 'tech_logos/Sql_logo.png'],
+            ['label' => 'PHP', 'image' => 'tech_logos/PHP-logo.svg.png'],
+            ['label' => 'Laravel', 'image' => 'tech_logos/Laravel_logo.svg.png'],
         ];
 
         // Giro nell'array per fare cose...
