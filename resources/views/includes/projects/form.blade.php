@@ -76,8 +76,8 @@
             alt="project-img" id="preview" class="img-fluid rounded">
     </div>
     <div class="col-3">
-        <label for="type_id" class="form-label">Type</label>
-        <select class="form-select" name="type_id" id="type_id"
+        <label for="type_id" class="form-label d-block">Types</label>
+        <select class="form-select mb-3" name="type_id" id="type_id"
             @error('type_id') is-invalid @elseif (old('type_id', '')) is-valid @enderror>
             <option value="">--Project Type</option>
             @foreach ($types as $type)
@@ -86,6 +86,25 @@
             @endforeach
         </select>
         @error('type_id')
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
+        @enderror
+    </div>
+    <div class="col-12">
+        <div class="form-group mb-3 @error('technologies') is-invalid @enderror">
+            <label for="technology_id" class="form-label d-block">Technologies</label>
+            @foreach ($technologies as $technology)
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="{{ "tech-$technology->id" }}"
+                        value="{{ $technology->id }}" name="technologies[]"
+                        @if (in_array($technology->id, old('technologies', $prev_technologies ?? []))) checked @endif>
+                    <label class="form-check-label" for="{{ "tech-$technology->id" }}"><img class="my-image"
+                            src="{{ $technology->renderLogos() }}" alt=""></label>
+                </div>
+            @endforeach
+        </div>
+        @error('technologies')
             <div class="invalid-feedback">
                 {{ $message }}
             </div>

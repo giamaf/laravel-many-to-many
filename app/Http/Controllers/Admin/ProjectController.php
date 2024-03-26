@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Technology;
 use App\Models\Type;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -41,7 +43,8 @@ class ProjectController extends Controller
     {
         $project = new Project;
         $types = Type::select('label', 'id')->get();
-        return view('admin.projects.create', compact('project', 'types'));
+        $technologies = Technology::select('label', 'id', 'image')->get();
+        return view('admin.projects.create', compact('project', 'types', 'technologies'));
     }
 
     /**
@@ -57,6 +60,7 @@ class ProjectController extends Controller
                 'image' => 'nullable|image|mimes:png,jpg,jpeg',
                 'is_completed' => 'nullable|boolean',
                 'type_id' => 'nullable|exists:types,id',
+                'technologies' => 'nullable|exists:technologies,id',
             ],
             [
                 'name.required' => 'Project name required',
@@ -68,6 +72,7 @@ class ProjectController extends Controller
                 'image.mimes' => 'Invalid file extension. Accepted only: .png, .jpg, .jpeg ',
                 'is_completed.boolean' => 'Invalid field',
                 'type_id.exists' => 'Invalid type',
+                'technology_id.exists' => 'Invalid technology',
             ]
         );
 
@@ -90,7 +95,7 @@ class ProjectController extends Controller
         //! ATTENZIONE
         //! Se lo faccio PRIMA del fill allora posso mantenere 'image' nel fillable del model
         //! Se lo faccio DOPO il fill allora nel model devo togliere 'image' dal fillable del model.
-        if (array_key_exists('image', $data)) {
+        if (Arr::exists($data, 'image')) {
 
             // Riprendiamo l'estensione del file caricato
             $extension = $data['image']->extension();
@@ -109,6 +114,12 @@ class ProjectController extends Controller
         // Salvo nel db
         $project->save();
 
+        // Dopo aver salvato, se ci sono technologies allora li aggancio nella tabella ponte
+        if (Arr::exists($data, 'technologies')) {
+            // Utilizzo la relazione e ci aggancio attach
+            $project->technologies()->attach($data['technologies']);
+        }
+
         return to_route('admin.projects.show', $project)->with('message', 'Project create successful')->with('type', 'success');
     }
 
@@ -125,8 +136,12 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
+        // Recupero le technologies associate al progetto e le mando giù come semplice array
+        $prev_technologies = $project->technologies->pluck('id')->toArray();
+
+        $technologies = Technology::select('label', 'id', 'image')->get();
         $types = Type::select('label', 'id')->get();
-        return view('admin.projects.edit', compact('project', 'types'));
+        return view('admin.projects.edit', compact('project', 'types', 'technologies', 'prev_technologies'));
     }
 
     /**
@@ -142,6 +157,7 @@ class ProjectController extends Controller
                 'image' => 'nullable|image|mimes:png,jpg,jpeg',
                 'is_completed' => 'nullable|boolean',
                 'type_id' => 'nullable|exists:types,id',
+                'technologies' => 'nullable|exists:technologies,id',
             ],
             [
                 'name.required' => 'Project name required',
@@ -153,6 +169,7 @@ class ProjectController extends Controller
                 'image.mimes' => 'Invalid file extension. Accepted only: .png, .jpg, .jpeg ',
                 'is_completed.boolean' => 'Invalid field',
                 'type_id.exists' => 'Invalid type',
+                'technology_id.exists' => 'Invalid technology',
             ]
         );
 
@@ -190,6 +207,14 @@ class ProjectController extends Controller
         // Salvo nel db
         $project->update($data);
 
+        // Dopo aver salvato, se ci sono technologies allora sovrascrivo nella tabella ponte
+        if (Arr::exists($data, 'technologies')) {
+            // Utilizzo la relazione e utilizzo sync per sovascrivere
+            $project->technologies()->sync($data['technologies']);
+
+            // Se però non ho technologies allora azzero tutto con detach
+        } elseif (!Arr::exists($data, 'technologies') && $project->has('technologies')) $project->technologies()->detach();
+
         return to_route('admin.projects.show', $project)->with('message', 'Project edited successful')->with('type', 'success');
     }
 
@@ -222,6 +247,9 @@ class ProjectController extends Controller
 
     public function drop(Project $project)
     {
+        // Elimino eventuali technologies presenti nel progetto
+        if ($project->has('technologies')) $project->technologies()->detach();
+
         // Controllo se c'è un file immagine alla cancellazione definitiva
         // Se c'è allora lo elimino definitivamente dalla cartella
         if ($project->image) Storage::delete($project->image);
