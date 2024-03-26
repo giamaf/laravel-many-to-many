@@ -31,6 +31,12 @@ class Project extends Model
         return $this->belongsTo(Type::class);
     }
 
+    //! Si definisce come un metodo ma si legge come proprietà. Es: ($project->type->label)
+    public function technologies()
+    {
+        return $this->belongsToMany(Technology::class);
+    }
+
     // Completed scope
     public function scopeCompleted(Builder $query, $status)
     {
