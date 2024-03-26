@@ -14,15 +14,24 @@ class TechnologySeeder extends Seeder
     public function run(): void
     {
 
+        $html_link = 'https://it.wikipedia.org/wiki/HTML';
+        $css_link = 'https://it.wikipedia.org/wiki/css';
+        $bootstrap_link = 'https://it.wikipedia.org/wiki/Bootstrap_(framework)';
+        $javascript_link = 'https://it.wikipedia.org/wiki/JavaScript';
+        $vue_link = 'https://it.wikipedia.org/wiki/Vue.js';
+        $sql_link = 'https://it.wikipedia.org/wiki/Structured_Query_Language';
+        $php_link = 'https://it.wikipedia.org/wiki/PHP';
+        $laravel_link = 'https://it.wikipedia.org/wiki/Laravel';
+
         $technologies = [
-            ['label' => 'HTML', 'image' => 'tech_logos/HTML-5-Badge-Logo.png'],
-            ['label' => 'CSS', 'image' => 'tech_logos/CSS3_logo.svg.png'],
-            ['label' => 'Bootstrap', 'image' => 'tech_logos/Bootstrap_logo.svg.png'],
-            ['label' => 'Javascript', 'image' => 'tech_logos/Javascript.svg.png'],
-            ['label' => 'Vue', 'image' => 'tech_logos/Vue.js.svg.png'],
-            ['label' => 'SQL', 'image' => 'tech_logos/Sql_logo.png'],
-            ['label' => 'PHP', 'image' => 'tech_logos/PHP-logo.svg.png'],
-            ['label' => 'Laravel', 'image' => 'tech_logos/Laravel_logo.svg.png'],
+            ['label' => 'HTML', 'image' => 'tech_logos/HTML-5-Badge-Logo.png', 'link' => $html_link],
+            ['label' => 'CSS', 'image' => 'tech_logos/CSS3_logo.svg.png', 'link' => $css_link],
+            ['label' => 'Bootstrap', 'image' => 'tech_logos/Bootstrap_logo.svg.png', 'link' => $bootstrap_link],
+            ['label' => 'Javascript', 'image' => 'tech_logos/Javascript.svg.png', 'link' => $javascript_link],
+            ['label' => 'Vue', 'image' => 'tech_logos/Vue.js.svg.png', 'link' => $vue_link],
+            ['label' => 'SQL', 'image' => 'tech_logos/Sql_logo.png', 'link' => $sql_link],
+            ['label' => 'PHP', 'image' => 'tech_logos/PHP-logo.svg.png', 'link' => $php_link],
+            ['label' => 'Laravel', 'image' => 'tech_logos/Laravel_logo.svg.png', 'link' => $laravel_link],
         ];
 
         // Giro nell'array per fare cose...
