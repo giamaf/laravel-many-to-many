@@ -6,9 +6,6 @@ const resetButton = document.getElementById('reset-button');
 const changeImageButton = document.getElementById('change-image-button');
 const previousImageField = document.getElementById('previous-image-field');
 
-
-console.log(changeImageButton, previousImageField);
-
 //# LOGICA PREVIEW IMMAGINE
 let blobUrl;
 
