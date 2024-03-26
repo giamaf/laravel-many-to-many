@@ -17,6 +17,6 @@ class Technology extends Model
 
     public function renderLogos()
     {
-        return Vite::asset('' . $this->image);
+        return Vite::asset('resources/' . $this->image);
     }
 }

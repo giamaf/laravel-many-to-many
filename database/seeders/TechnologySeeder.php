@@ -25,7 +25,7 @@ class TechnologySeeder extends Seeder
 
         $technologies = [
             ['label' => 'HTML', 'image' => 'tech_logos/HTML-5-Badge-Logo.png', 'link' => $html_link],
-            ['label' => 'CSS', 'image' => 'tech_logos/CSS3_logo.svg.png', 'link' => $css_link],
+            ['label' => 'CSS', 'image' => 'tech_logos/css.png', 'link' => $css_link],
             ['label' => 'Bootstrap', 'image' => 'tech_logos/Bootstrap_logo.svg.png', 'link' => $bootstrap_link],
             ['label' => 'Javascript', 'image' => 'tech_logos/Javascript.svg.png', 'link' => $javascript_link],
             ['label' => 'Vue', 'image' => 'tech_logos/Vue.js.svg.png', 'link' => $vue_link],
