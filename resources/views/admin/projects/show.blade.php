@@ -9,7 +9,7 @@
     <header>
         <h3 class="border-bottom py-1">{{ $project->name }}</h3>
         <small>
-            <p><b>Type:
+            <p class="my-1"><b>Type:
         </small></b>
         @if ($project->type)
             <span class="badge rounded-pill"
@@ -17,6 +17,16 @@
         @else
             <span class="badge rounded-pill text-bg-dark">No type</span>
         @endif
+        </p>
+        <small>
+            <p><b>Technology:
+        </small></b>
+        @forelse ($project->technologies as $technology)
+            <img class="img-fluid" src="{{ $technology->renderLogos() }}" alt="">
+        @empty
+            <span class="badge rounded-pill text-bg-dark">No type</span>
+        @endforelse
+
         </p>
     </header>
 
