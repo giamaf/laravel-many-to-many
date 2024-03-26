@@ -27,6 +27,6 @@ class DatabaseSeeder extends Seeder
         $this->call(TypeSeeder::class, Technology::class);
 
         //! CREO 10 FAKE PROJECT
-        \App\Models\Project::factory(30)->create();
+        \App\Models\Project::factory(15)->create();
     }
 }
